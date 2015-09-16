@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,14 +16,16 @@ import java.util.stream.Collectors;
  * 31.05.2015.
  */
 public class UserMealsUtil {
+
+
     public static void main(String[] args) {
         List<UserMeal> mealList = Arrays.asList(
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,10,0), "Завтрак", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,13,0), "Обед", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,20,0), "Ужин", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,10,0), "Завтрак", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,13,0), "Обед", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510)
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
         );
         List<UserMealWithExceed> filteredMealsWithExceeded = getFilteredMealsWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
         filteredMealsWithExceeded.forEach(System.out::println);
@@ -58,6 +61,32 @@ public class UserMealsUtil {
             }
         }
         return mealExceeded;
+    }
+
+    public static List<UserMeal> testList(){
+        List<UserMeal> mealList = Arrays.asList(
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,10,0), "Завтрак", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,13,0), "Обед", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,20,0), "Ужин", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,10,0), "Завтрак", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,13,0), "Обед", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 10,10,0), "Завтрак", 600),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 10,13,0), "Обед", 400),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 10,20,0), "Ужин", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 15,10,0), "Завтрак", 700),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 15,13,0), "Обед", 700),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 15,20,0), "Ужин", 800)
+        );
+        return mealList;
+    }
+
+    public static List<UserMealWithExceed> getFilteredMealsWithExceeded() {
+        return getFilteredMealsWithExceeded(testList(), LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
+    }
+
+        public static String color(UserMealWithExceed userMeal){
+            return userMeal.isExceed()?"FE2E2E":"006400";
     }
 
 }

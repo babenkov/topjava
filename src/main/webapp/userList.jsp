@@ -5,5 +5,7 @@
 </head>
 <body>
 <h2>User list</h2>
+<br>
+<a href="/topjava" target="_blank">Index</a>
 </body>
 </html>
