@@ -29,7 +29,7 @@ public class UserMealDao {
         mealList.add(id, meal);
     }
 
-    public static void delete(long id)
+    public static void delete(int id)
     {
         mealList.remove(id);
     }

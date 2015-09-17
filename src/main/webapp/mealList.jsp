@@ -27,12 +27,14 @@
     </tr>
 
 <c:forEach items="${mealList}" var="meal">
+    <c:set var="id" value="${mealList.indexOf(meal)}"/>
     <tr class="${meal.exceed ? 'red' : 'green'}">
     <td><c:out value="${meal.date}"/> <c:out value="${meal.time}"/> </td>
     <td><c:out value="${meal.description}"/>  </td>
     <td><c:out value="${meal.calories}"/>  </td>
+    <%--<td><c:>  </td>--%>
     <%--<td><c:out value="${meal.id}"/>  </td>--%>
-    <td><a href="meals/delete/id=${meal.id}">Delete</a> </td>
+    <td><a href="./meals/delete/${id}">Delete</a> </td>
     </tr>
     </c:forEach>
 </table>
@@ -64,6 +66,6 @@
 
 </table>
 
-<a href="/topjava" target="_blank">Index</a>
+<a href="/topjava">Index</a>
 </body>
 </html>

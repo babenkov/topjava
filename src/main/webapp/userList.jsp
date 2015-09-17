@@ -6,6 +6,6 @@
 <body>
 <h2>User list</h2>
 <br>
-<a href="/topjava" target="_blank">Index</a>
+<a href="/topjava">Index</a>
 </body>
 </html>

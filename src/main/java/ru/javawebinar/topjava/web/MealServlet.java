@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web;
 
 import javafx.util.converter.LocalDateTimeStringConverter;
 import ru.javawebinar.topjava.LoggerWrapper;
+import ru.javawebinar.topjava.dao.UserMealDao;
 import ru.javawebinar.topjava.model.UserMealWithExceed;
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
@@ -32,7 +33,8 @@ public class MealServlet extends HttpServlet {
         LOG.debug("forward to mealList");
 
         try {
-            List<UserMealWithExceed> model = UserMealsUtil.getFilteredMealsWithExceeded();
+//            List<UserMealWithExceed> model = UserMealsUtil.getFilteredMealsWithExceeded();
+            List<UserMealWithExceed> model = UserMealDao.selectAll();
             request.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, model);
             //OK
             RequestDispatcher dispatcher = request.getRequestDispatcher(PAGE_OK);

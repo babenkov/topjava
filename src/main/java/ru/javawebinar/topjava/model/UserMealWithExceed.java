@@ -19,7 +19,7 @@ public class UserMealWithExceed {
 
     protected final boolean exceed;
 
-//    protected final long id;
+    protected final long id;
 
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -45,16 +45,16 @@ public class UserMealWithExceed {
         return dateTime.toLocalTime();
     }
 
-    public long getId(){
-        return dateTime.toEpochSecond(ZoneOffset.UTC);
-    }
-
-//    public long getId() {
-//        return id;
+//    public long getId(){
+//        return dateTime.toEpochSecond(ZoneOffset.UTC);
 //    }
 
+    public long getId() {
+        return id;
+    }
+
     public UserMealWithExceed(LocalDateTime dateTime, String description, int calories, boolean exceed) {
-//        this.id = dateTime.toEpochSecond(ZoneOffset.UTC);
+        this.id = dateTime.toEpochSecond(ZoneOffset.UTC);
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
