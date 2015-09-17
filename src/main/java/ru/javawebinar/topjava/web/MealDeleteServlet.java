@@ -28,18 +28,20 @@ public class MealDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOG.debug("delete and forward to mealList");
 
-        String url = request.getRequestURL().toString();
-        System.out.println(url);
+//        String url = request.getRequestURL().toString();
+        String pathInfo = request.getPathInfo();
+        LOG.debug("pathInfo: "+pathInfo);
 //        try {
-        String[] parts = url.split("/");
-//        int id = Integer.parseInt(parts[1]);
-        long id = Long.parseLong(parts[1]);
+        String[] parts = pathInfo.split("/");
+        int id = Integer.parseInt(parts[1]);
+//        long id = Long.parseLong(parts[1]);
         UserMealDao.delete(id);
         try {
             List<UserMealWithExceed> model = UserMealsUtil.getFilteredMealsWithExceeded();
             request.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, model);
             //OK
-            response.sendRedirect(PAGE_OK);
+//            response.sendRedirect(PAGE_OK);
+            response.sendRedirect("/topjava/meals");
 //            RequestDispatcher dispatcher = request.getRequestDispatcher(PAGE_OK);
 //            dispatcher.forward(request, response);
             return;
