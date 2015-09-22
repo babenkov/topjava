@@ -4,8 +4,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 
 /**
@@ -19,6 +23,20 @@ public class SpringMain {
             System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             System.out.println(adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
+            System.out.println();
+            System.out.println();
+            UserMealRestController userMealRestController = appCtx.getBean(UserMealRestController.class);
+            System.out.println(userMealRestController.getAll(LoggedUser.id()));
+            System.out.println("_____________________________________");
+            userMealRestController.create(new UserMeal(LocalDateTime.of(2015, Month.MAY, 22, 10, 0), "Breakfast of user 2", 900), 2);
+            userMealRestController.create(new UserMeal(LocalDateTime.of(2015, Month.MAY, 22, 13, 0), "Dinner of user 2", 900), 2);
+            userMealRestController.create(new UserMeal(LocalDateTime.of(2015, Month.MAY, 22, 20, 0), "Ужин of user 2", 900), 2);
+            System.out.println(userMealRestController.getAll(2));
+            userMealRestController.delete(11, 2);
+            userMealRestController.delete(10, 2);
+            System.out.println(userMealRestController.getAll(2));
+
+
         }
     }
 }
