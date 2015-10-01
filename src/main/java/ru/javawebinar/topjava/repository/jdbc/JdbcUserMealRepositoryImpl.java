@@ -70,9 +70,11 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
             Number newKey = insertMeal.executeAndReturnKey(map);
             userMeal.setId(newKey.intValue());
         } else {
-            namedParameterJdbcTemplate.update(
+            if (namedParameterJdbcTemplate.update(
                     "UPDATE meals SET description=:description, calories=:calories, " +
-                            "dateTime=:dateTime WHERE user_id=:user_id and id=:id", map);
+                            "dateTime=:dateTime WHERE user_id=:user_id and id=:id", map) == 0){
+                return null;
+            }
         }
         return userMeal;
     }
@@ -91,7 +93,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public List<UserMeal> getAll(int userId) {
-        return jdbcTemplate.query("SELECT * FROM meals WHERE user_id=? ORDER BY datetime", ROW_MAPPER, userId);
+        return jdbcTemplate.query("SELECT * FROM meals WHERE user_id=? ORDER BY datetime DESC", ROW_MAPPER, userId);
     }
 
     @Override
