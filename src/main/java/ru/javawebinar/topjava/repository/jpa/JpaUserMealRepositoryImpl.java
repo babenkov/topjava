@@ -45,8 +45,10 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
     @Override
     @Transactional
     public boolean delete(int id, int userId) {
-        return entityManager.createNamedQuery(UserMeal.DELETE).
-                setParameter(1, userId).setParameter(2, id).executeUpdate() != 0;
+        return entityManager.createNamedQuery(UserMeal.DELETE)
+                .setParameter(1, userId)
+                .setParameter(2, id)
+                .executeUpdate() != 0;
     }
 
     @Override
@@ -67,7 +69,10 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return entityManager.createNamedQuery(UserMeal.GET_BETWEEN, UserMeal.class).
-                setParameter(1, userId).setParameter(2, startDate).setParameter(3, endDate).getResultList();
+        return entityManager.createNamedQuery(UserMeal.GET_BETWEEN, UserMeal.class)
+                .setParameter(1, userId)
+                .setParameter(2, startDate)
+                .setParameter(3, endDate)
+                .getResultList();
     }
 }
