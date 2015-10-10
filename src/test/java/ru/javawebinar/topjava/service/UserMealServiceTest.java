@@ -13,6 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.MealTestData;
+import ru.javawebinar.topjava.TimingRule;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -36,7 +37,10 @@ public class UserMealServiceTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Rule
-    public TestRule timeout = new Timeout(10000);
+    public TestRule timeout = new Timeout(1000);
+
+    @Rule
+    public TimingRule timingRule = new TimingRule();
 
     @Autowired
     protected UserMealService service;
@@ -48,14 +52,15 @@ public class UserMealServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
-    @Test(expected = NotFoundException.class)
+//    @Test(expected = NotFoundException.class)
     @Timed(millis = 500)
     public void testDeleteNotFound() throws Exception {
+        expectedException.expect(NotFoundException.class);
         service.delete(MEAL1_ID, 1);
     }
 
     @Test
-    @Timed(millis = 100)
+    @Timed(millis = 300)
     public void testSave() throws Exception {
         UserMeal created = getCreated();
         service.save(created, USER_ID);
@@ -69,9 +74,10 @@ public class UserMealServiceTest {
         MATCHER.assertEquals(ADMIN_MEAL, actual);
     }
 
-    @Test(expected = NotFoundException.class)
+//    @Test(expected = NotFoundException.class)
     @Timed(millis = 300)
     public void testGetNotFound() throws Exception {
+        expectedException.expect(NotFoundException.class);
         service.get(MEAL1_ID, ADMIN_ID);
     }
 
@@ -83,9 +89,10 @@ public class UserMealServiceTest {
         MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
     }
 
-    @Test(expected = NotFoundException.class)
+//    @Test(expected = NotFoundException.class)
     @Timed(millis = 300)
     public void testNotFoundUpdate() throws Exception {
+        expectedException.expect(NotFoundException.class);
         UserMeal item = service.get(MEAL1_ID, USER_ID);
         service.update(item, ADMIN_ID);
     }
