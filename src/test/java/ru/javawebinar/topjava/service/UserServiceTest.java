@@ -2,14 +2,8 @@ package ru.javawebinar.topjava.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.UserTestData.*;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
@@ -19,17 +13,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import static ru.javawebinar.topjava.Profiles.POSTGRES;
 import static ru.javawebinar.topjava.UserTestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(POSTGRES)
-public class UserServiceTest {
+public class UserServiceTest extends BaseServiceTest {
 
     @Autowired
     protected UserService service;
@@ -38,7 +24,7 @@ public class UserServiceTest {
     public void setUp() throws Exception {
         service.evictCache();
     }
-        
+
     @Test
     public void testSave() throws Exception {
         TestUser tu = new TestUser(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
@@ -47,8 +33,9 @@ public class UserServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, tu, USER), service.getAll());
     }
 
-    @Test(expected = DataAccessException.class)
+//    @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
+        thrown.expect(DataAccessException.class);
         service.save(new TestUser("Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER).asUser());
     }
 
@@ -58,8 +45,8 @@ public class UserServiceTest {
         MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
-    @Test(expected = NotFoundException.class)
     public void testNotFoundDelete() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(1);
     }
 
@@ -69,8 +56,8 @@ public class UserServiceTest {
         MATCHER.assertEquals(USER, user);
     }
 
-    @Test(expected = NotFoundException.class)
     public void testGetNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.get(1);
     }
 
