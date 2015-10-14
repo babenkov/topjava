@@ -16,6 +16,7 @@ import ru.javawebinar.topjava.LoggerWrapper;
 import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.Profiles.POSTGRES;
+import static ru.javawebinar.topjava.Profiles.HSQLDB;
 
 
 @ContextConfiguration({
@@ -24,7 +25,7 @@ import static ru.javawebinar.topjava.Profiles.POSTGRES;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(POSTGRES)
+@ActiveProfiles(HSQLDB)
 public abstract class BaseServiceTest {
 
     private static final LoggerWrapper LOG = LoggerWrapper.get(BaseServiceTest.class);
