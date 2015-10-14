@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
@@ -13,6 +15,11 @@ import java.util.List;
  */
 @Repository
 public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
+    private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
+
+    @Autowired
+    private ProxyUserMealRepository proxy;
+
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
         return null;
@@ -20,7 +27,7 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public boolean delete(int id, int userId) {
-        return false;
+        return (proxy.delete(id, userId) != 0);
     }
 
     @Override
