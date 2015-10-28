@@ -45,9 +45,8 @@ public class UserMealRestController extends AbstractUserMealController {
         return super.getAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody UserMeal meal, @PathVariable("id") int id) {
-        meal.setId(id);
+    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody UserMeal meal) {
         super.update(meal);
     }
 
