@@ -25,19 +25,10 @@ import java.util.List;
 public class UserMealAjaxController extends AbstractUserMealController {
     public static final String REST_URL = "/ajax/profile/meals";
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<UserMealWithExceed> getAll() {
-//        return super.getAll();
-//    }
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserMealWithExceed> getAll(){
-            return super.getAll();
-        }
-
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void delete(@PathVariable("id") int id) {
-//        super.delete(id);
-//    }
+    public List<UserMealWithExceed> getAll() {
+        return super.getAll();
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) {
@@ -48,58 +39,12 @@ public class UserMealAjaxController extends AbstractUserMealController {
     public void update(@RequestParam("id") Integer id,
                        @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
                        @RequestParam("description") String description,
-                       @RequestParam("password") Integer calories) {
-
-        UserMeal meal = new UserMeal(dateTime, description, calories);
+                       @RequestParam("calories") Integer calories) {
+        UserMeal userMeal = new UserMeal(dateTime, description, calories);
         if (id == 0) {
-            super.create(meal);
+            super.create(userMeal);
         } else {
-            super.update(meal, id);
+            super.update(userMeal, id);
         }
     }
-
-
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//    public UserMeal get(@PathVariable("id") int id) {
-//        return super.get(id);
-//    }
-
-
-
-
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public void update(@RequestBody UserMeal meal, @PathVariable("id") int id) {
-//        super.update(meal, id);
-//    }
-
-//    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<UserMeal> createWithLocation(@RequestBody UserMeal meal) {
-//        UserMeal created = super.create(meal);
-//
-//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path(REST_URL + "/{id}")
-//                .buildAndExpand(created.getId()).toUri();
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setLocation(uriOfNewResource);
-//
-//        return new ResponseEntity<>(created, httpHeaders, HttpStatus.CREATED);
-//    }
-
-//    @RequestMapping(value = "/between", method = RequestMethod.GET)
-//    public List<UserMealWithExceed> getBetween(
-//            @RequestParam(value = "startDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
-//            @RequestParam(value = "endDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime) {
-//        return super.getBetween(startDateTime.toLocalDate(), startDateTime.toLocalTime(), endDateTime.toLocalDate(), endDateTime.toLocalTime());
-//    }
-//
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-//    public List<UserMealWithExceed> getBetween(
-//            @RequestParam(value = "startDate", required = false) LocalDate startDate, @RequestParam(value = "startTime", required = false) LocalTime startTime,
-//            @RequestParam(value = "endDate", required = false) LocalDate endDate, @RequestParam(value = "endTime", required = false) LocalTime endTime) {
-//        return super.getBetween(
-//                startDate != null ? startDate : TimeUtil.MIN_DATE, startTime != null ? startTime : LocalTime.MIN,
-//                endDate != null ? endDate : TimeUtil.MAX_DATE, endTime != null ? endTime : LocalTime.MAX);
-//    }
 }

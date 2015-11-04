@@ -92,9 +92,10 @@
                     <div class="form-group">
                         <label for="dateTime" class="control-label col-xs-3">Date and Time</label>
 
+
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
-                                   placeholder="<%=java.time.LocalDateTime.now()%>">
+                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" placeholder="<%=java.time.LocalDateTime.now()%>">
+
                         </div>
                     </div>
 
@@ -112,7 +113,7 @@
 
                         <div class="col-xs-9">
                             <input type="number" class="form-control" id="calories" name="calories"
-                                   placeholder="Calories">
+                                   placeholder="calories">
                         </div>
                     </div>
 
@@ -126,6 +127,8 @@
         </div>
     </div>
 </div>
+
+
 </body>
 <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
