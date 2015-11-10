@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -31,12 +33,14 @@ public class UserMeal extends BaseEntity {
 
     @Column(name = "date_time", nullable = false)
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     protected LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
     @NotEmpty
     protected String description;
 
+    @Min(0)
     @Column(name = "calories")
     protected int calories;
 
