@@ -22,26 +22,26 @@
                         <label class="control-label col-sm-2" for="startDate">From Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" name="startDate" id="startDate">
+                            <input class="date-picker" type="date" name="startDate" id="startDate">
                         </div>
 
                         <label class="control-label col-sm-2" for="endDate">To Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" name="endDate" id="endDate">
+                            <input class="date-picker" type="date" name="endDate" id="endDate">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="startTime">From Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" name="startTime" id="startTime">
+                            <input class="time-picker" type="time" name="startTime" id="startTime">
                         </div>
 
                         <label class="control-label col-sm-2" for="endTime">To Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" name="endTime" id="endTime">
+                            <input class="time-picker" type="time" name="endTime" id="endTime">
                         </div>
                     </div>
                     <div class="form-group">
@@ -94,11 +94,11 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="datetime" class="control-label col-xs-3">Date</label>
+                        <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="datetime"
-                                   name="dateTime" placeholder="Date">
+                            <input type="datetime" class="form-control datetime-picker" id="dateTime"
+                                   name="dateTime" placeholder="Example 2015-05-30T07:01">
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,62 +134,6 @@
 <script type="text/javascript" src="webjars/datatables/1.10.9/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.2.4/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
-<script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
-    var datatableApi;
+<script type="text/javascript" src="resources/js/mealDatatables.js"></script>
 
-    function updateTable() {
-        $.ajax({
-            type: "POST",
-            url: ajaxUrl + 'filter',
-            data: $('#filter').serialize(),
-            success: function (data) {
-                updateTableByData(data);
-            }
-        });
-        return false;
-    }
-
-    $(function () {
-        datatableApi = $('#datatable').DataTable({
-            "bPaginate": false,
-            "bInfo": false,
-            "aoColumns": [
-                {
-                    "mData": "dateTime"
-                },
-                {
-                    "mData": "description"
-                },
-                {
-                    "mData": "calories"
-                },
-                {
-                    "sDefaultContent": "Edit",
-                    "bSortable": false
-                },
-                {
-                    "sDefaultContent": "Delete",
-                    "bSortable": false
-                }
-            ],
-            "aaSorting": [
-                [
-                    0,
-                    "desc"
-                ]
-            ]
-        });
-
-        $('#filter').submit(function () {
-            updateTable();
-            return false;
-        });
-        makeEditable();
-        init();
-    });
-
-    function init() {
-    }
-</script>
 </html>

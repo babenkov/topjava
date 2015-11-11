@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -40,9 +41,10 @@ public class UserMeal extends BaseEntity {
     @NotEmpty
     protected String description;
 
-    @Min(0)
+    @NotNull
+    @Range(min = 10, max = 5000)
     @Column(name = "calories")
-    protected int calories;
+    protected Integer calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -90,7 +92,7 @@ public class UserMeal extends BaseEntity {
         this.description = description;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
     }
 

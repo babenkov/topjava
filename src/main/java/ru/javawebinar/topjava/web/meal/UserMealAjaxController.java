@@ -33,6 +33,11 @@ public class UserMealAjaxController extends AbstractUserMealController {
         super.delete(id);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public UserMeal get(@PathVariable("id") int id) {
+        return super.get(id);
+    }
+
 //    @RequestMapping(method = RequestMethod.POST)
 //    public void update(MealTo mealTo){
 //        if(mealTo.getId() == 0){
