@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.web.meal;
 
 import org.junit.Test;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 
 import static org.hamcrest.Matchers.*;
@@ -18,6 +21,8 @@ public class UserMealControllerTest extends AbstractControllerTest {
 
     @Test
     public void testMealList() throws Exception {
+//        SecurityContextHolder.getContext().setAuthentication(
+//                        new UsernamePasswordAuthenticationToken(UserTestData.USER.getEmail(), UserTestData.USER.getPassword()));
         mockMvc.perform(get("/meals"))
                 .andDo(print())
                 .andExpect(status().isOk())

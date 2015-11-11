@@ -61,9 +61,4 @@ $(function () {
         updateTable();
         return false;
     });
-    //
-    ////makeEditable();
-    //init();
 });
-//function init() {
-//}

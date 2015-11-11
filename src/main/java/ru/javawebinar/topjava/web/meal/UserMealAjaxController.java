@@ -38,36 +38,6 @@ public class UserMealAjaxController extends AbstractUserMealController {
         return super.get(id);
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void update(MealTo mealTo){
-//        if(mealTo.getId() == 0){
-//            super.update(meal, id);
-//        }
-//    }
-
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void updateOrCreate(@RequestParam("id") int id,
-//                               @RequestParam("datetime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
-//                               @RequestParam("description") String description,
-//                               @RequestParam("calories") int calories) {
-//        UserMeal meal = new UserMeal(id, dateTime, description, calories);
-//        if (id == 0) {
-//            super.create(meal);
-//        } else {
-//            super.update(meal, id);
-//        }
-//    }
-
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void updateOrCreate(UserMeal meal) {
-////        UserMeal meal = new UserMeal(mealTo.getDateTime(), mealTo.getDescription(), mealTo.getCalories());
-//        if (meal.getId() == 0) {
-//            super.create(meal);
-//        } else {
-//            super.update(meal, meal.getId());
-//        }
-//    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> updateOrCreate(@Valid UserMeal meal, BindingResult result) {
         if (result.hasErrors()) {
