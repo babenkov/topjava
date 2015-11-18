@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.util.exception.ErrorInfo;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
-import ru.javawebinar.topjava.util.exception.UnprocessableEntityException;
+import ru.javawebinar.topjava.util.exception.ValidationException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,14 +35,13 @@ public interface ExceptionInfoHandler {
     @Order(Ordered.HIGHEST_PRECEDENCE + 1)
     default ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
-//        throw new DataIntegrityViolationException("User with this email already present in application.");
     }
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
-    @ExceptionHandler(UnprocessableEntityException.class)
+    @ExceptionHandler(ValidationException.class)
     @ResponseBody
     @Order(Ordered.HIGHEST_PRECEDENCE + 2)
-    default ErrorInfo handleError(HttpServletRequest req, UnprocessableEntityException e) {
+    default ErrorInfo handleError(HttpServletRequest req, ValidationException e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
 

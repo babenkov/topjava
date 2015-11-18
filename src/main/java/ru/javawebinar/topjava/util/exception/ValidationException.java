@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Date: 19.08.2014
  */
 @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "Unprocessable Entity")  // 422
-public class UnprocessableEntityException extends RuntimeException {
-    public UnprocessableEntityException(String message) {
+public class ValidationException extends RuntimeException {
+    public ValidationException(String message) {
         super(message);
     }
 }
